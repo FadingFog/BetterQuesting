@@ -619,6 +619,8 @@ public class GuiQuestLines extends GuiScreenCanvas implements IPEventListener, I
 
         for(DBEntry<IQuestLineEntry> entry : selectedLine.getEntries()) {
             IQuest quest = QuestingAPI.getAPI(ApiReference.QUEST_DB).getValue(entry.getID());
+            if (quest == null)
+                continue;
 
             totalQuests++;
 
