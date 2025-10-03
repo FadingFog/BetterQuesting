@@ -80,7 +80,8 @@ public class PanelButtonQuest extends PanelButtonStorage<DBEntry<IQuest>>
 
 		IGuiTexture btnTx = new GuiTextureColored(txFrame, txIconCol);
         setTextures(btnTx, btnTx, btnTx);
-        setIcon(new OreDictTexture(1F, value == null ? new BigItemStack(Items.nether_star) : value.getValue().getProperty(NativeProps.ICON), false, true), 4);
+        BigItemStack icon = value == null ? null : value.getValue().getProperty(NativeProps.ICON);
+        setIcon(new OreDictTexture(1F, icon == null ? new BigItemStack(Items.nether_star) : icon, false, true), 4);
         //setTooltip(value == null ? Collections.emptyList() : value.getValue().getTooltip(player));
         setActive(QuestingAPI.getAPI(ApiReference.SETTINGS).canUserEdit(player) || !lock || BQ_Settings.viewMode);
     }
