@@ -6,6 +6,7 @@ import bq_standard.core.proxies.CommonProxy;
 import bq_standard.handlers.ConfigHandler;
 import bq_standard.handlers.GuiHandler;
 import bq_standard.handlers.LootSaveLoad;
+import bq_standard.handlers.PlayerContainerListener;
 import bq_standard.items.ItemLootChest;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -92,5 +93,7 @@ public class BQ_Standard {
     @EventHandler
     public void serverStopped(FMLServerStoppedEvent event) {
         LootSaveLoad.INSTANCE.UnloadLoot();
+        bq_standard.handlers.EventHandler.cleanup();
+        PlayerContainerListener.cleanup();
     }
 }
