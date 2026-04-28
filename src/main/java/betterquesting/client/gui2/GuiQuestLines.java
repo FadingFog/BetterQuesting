@@ -90,9 +90,9 @@ public class GuiQuestLines extends GuiScreenCanvas implements IPEventListener, I
     private CanvasQuestLine cvQuest;
 
     // Keep these separate for now
-    private static CanvasHoverTray cvChapterTray;
-    private static CanvasHoverTray cvDescTray;
-    private static CanvasHoverTray cvFrame;
+    private CanvasHoverTray cvChapterTray;
+    private CanvasHoverTray cvDescTray;
+    private CanvasHoverTray cvFrame;
 
     private CanvasScrolling cvDesc;
     private PanelVScrollBar scDesc;
@@ -154,11 +154,7 @@ public class GuiQuestLines extends GuiScreenCanvas implements IPEventListener, I
         }
 
         boolean canEdit = QuestingAPI.getAPI(ApiReference.SETTINGS).canUserEdit(mc.thePlayer);
-        boolean preOpen = false;
-        // First time load, if tray locked - let the tray open
-        if(trayLock && cvChapterTray == null && cvDescTray == null) preOpen = true;
-        if(trayLock && cvChapterTray != null && cvChapterTray.isTrayOpen()) preOpen = true;
-        if(trayLock && cvDescTray != null && cvDescTray.isTrayOpen()) preOpen = true;
+        boolean preOpen = trayLock;
 
         PEventBroadcaster.INSTANCE.register(this, PEventButton.class);
 
@@ -213,9 +209,9 @@ public class GuiQuestLines extends GuiScreenCanvas implements IPEventListener, I
 
         // === TRAY STATE ===
 
-        boolean chapterTrayOpened = trayLock && cvChapterTray != null && cvChapterTray.isTrayOpen();
+        boolean chapterTrayOpened = false;
         boolean descTrayOpened = trayLock && cvDescTray != null && cvDescTray.isTrayOpen();
-        if (preOpen && !chapterTrayOpened && !descTrayOpened)
+        if (preOpen && !descTrayOpened)
             chapterTrayOpened = true;
 
         // === CHAPTER TRAY ===
