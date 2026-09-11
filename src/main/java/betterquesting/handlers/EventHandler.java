@@ -449,7 +449,19 @@ public class EventHandler
 
 	private static final ArrayDeque<FutureTask> serverTasks = new ArrayDeque<>();
 	private static Thread serverThread = null;
-	
+
+	// Drop references to the stopped server (thread, pending tasks, players) so it can be GC'd
+	public static void cleanup()
+	{
+		synchronized(serverTasks)
+		{
+			serverTasks.clear();
+			serverThread = null;
+		}
+		INSTANCE.opQueue.clear();
+		INSTANCE.openToLAN = false;
+	}
+
 	@SuppressWarnings("UnstableApiUsage")
     public static <T> ListenableFuture<T> scheduleServerTask(Callable<T> task)
     {

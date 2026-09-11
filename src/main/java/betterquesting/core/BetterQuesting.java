@@ -156,5 +156,6 @@ public class BetterQuesting
 	public void serverStop(FMLServerStoppedEvent event)
 	{
 		SaveLoadHandler.INSTANCE.unloadDatabases();
+		betterquesting.handlers.EventHandler.cleanup();
 	}
 }

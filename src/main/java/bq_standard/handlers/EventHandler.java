@@ -287,6 +287,10 @@ public class EventHandler {
         synchronized (playerInventoryUpdates) {
             playerInventoryUpdates.clear();
         }
+        synchronized (serverTasks) {
+            serverTasks.clear();
+            serverThread = null;
+        }
     }
 
     // NOTE: This is slightly different to the version in the base mod. This one will not immediately run tasks even if
